@@ -39,7 +39,7 @@ local function crash(reason,message)
 		end
 end
 local function main(...)
-	local apis = fs.list("/.FireBox/apis")
+	apis = fs.list("/.FireBox/apis")
 	for i = 1, #apis do
 		dofile("/.FireBox/apis/"..apis[i])
 	end
