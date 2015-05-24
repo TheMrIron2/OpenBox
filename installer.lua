@@ -1,11 +1,11 @@
 local files = {
 	["src/FireBox.lua"] = "/.FireBox/FireBox",
-	["src/apis/fb.lua"] = "/.FireBox/apis/fb"
-	["src/apis/graphics.lua"] = "/.FireBox/apis/graphics"
-	["src/apis/sertextext.lua"] = "/.FireBox/apis/sertextext"
-	["src/apis/sha256.lua"] = "/.FireBox/apis/sha256"
-	["src/apis/ui.lua"] = "/.FireBox/apis/ui"
-	["src/startup.lua"] = "/startup"
+	["src/apis/fb.lua"] = "/.FireBox/apis/fb",
+	["src/apis/graphics.lua"] = "/.FireBox/apis/graphics",
+	["src/apis/sertextext.lua"] = "/.FireBox/apis/sertextext",
+	["src/apis/sha256.lua"] = "/.FireBox/apis/sha256",
+	["src/apis/ui.lua"] = "/.FireBox/apis/ui",
+	["src/startup.lua"] = "/startup",
 }
 
 local githubUser    = "Sertex-Team"
