@@ -112,13 +112,13 @@ local function main(...)
 	
 		local opt, ch = ui.menu(options, "Dashboard")
 	
-		if opt == 1 then
+		if ch == 1 then
 			sleep(0.1)
 			localGamesList()
-		elseif opt == 2 then
+		elseif ch == 2 then
 			sleep(0.1)
 			playDisk()
-		elseif opt == 3 then
+		elseif ch == 3 then
 			os.shutdown()
 		else
 			mainMenu()
