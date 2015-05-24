@@ -147,5 +147,3 @@ local ok, err = pcall(main)
 if not ok then
 	crash("crash",err)
 end
-
-os.shutdown()
