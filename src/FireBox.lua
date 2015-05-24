@@ -59,6 +59,7 @@ local function main(...)
 	end
 	
 	local function playDisk()
+		sleep(0.1)
 		clear()
 		graphics.header()
 		sertextext.center(5, "Insert a disk or press backspace to cancel")
@@ -92,9 +93,11 @@ local function main(...)
 					end
 				end
 			elseif e == "key" and par == 14 then
+				sleep(0.1)
 				mainMenu()
 			end
 		end
+		mainMenu()
 	end
 	
 	function mainMenu()
@@ -117,6 +120,8 @@ local function main(...)
 			playDisk()
 		elseif opt == 3 then
 			os.shutdown()
+		else
+			mainMenu()
 		end
 	end
 	
