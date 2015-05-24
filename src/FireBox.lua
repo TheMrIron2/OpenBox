@@ -39,10 +39,11 @@ local function crash(reason,message)
 		end
 end
 local function main(...)
-	apis = fs.list("/.FireBox/apis")
-	for i = 1, #apis do
-		dofile("/.FireBox/apis/"..apis[i])
+for i, v in ipairs(fs.list("/.FireBox/apis")) do
+	if not fs.isDir(v) then
+		dofile("/.FireBox/apis/"..v)
 	end
+end
 	
 	local function clear()
 		term.setBackgroundColor(colors.white)
