@@ -79,6 +79,7 @@ local function main(...)
 					if not fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
 						clear()
 						graphics.header()
+						sertextext.center(5, "The inserted disk is not compatible with FireBox")
 						disk.eject(par)
 						sleep(2)
 					else
