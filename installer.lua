@@ -6,6 +6,7 @@ local files = {
 	["src/apis/sha256.lua"] = "/.FireBox/apis/sha256",
 	["src/apis/ui.lua"] = "/.FireBox/apis/ui",
 	["src/startup.lua"] = "/startup",
+	["src/games/trongame/trongame.lua"] = "/.FireBox/games/trongame/trongame",
 }
 
 local githubUser    = "Sertex-Team"

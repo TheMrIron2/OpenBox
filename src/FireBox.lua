@@ -54,13 +54,27 @@ local function main(...)
 	
 	
 	local function localGamesList()
-		clear()
-		graphics.header()
-		local options = {
-			"Worm"",
-			"Redirection",
-			"",
-		}
+		while true do
+			clear()
+			graphics.header()
+			local options = {
+				"Worm",
+				"Redirection",
+				"Tron Game (Multiplayer)",
+				"Back",
+			}
+		
+			local opt, ch = ui.menu(options, "Local Games")
+			if ch == 1 then
+				shell.run("/rom/programs/fun/worm")
+			elseif ch == 2 then
+				shell.run("/rom/programs/fun/advanced/redirection")
+			elseif ch == 3 then
+				shell.run("/.FireBox/games/trongame/trongame")
+			elseif ch == 4 then
+				mainMenu()
+			end
+		end
 	end
 	
 	local function playDisk()
