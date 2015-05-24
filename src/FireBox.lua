@@ -87,12 +87,11 @@ local function main(...)
 						else
 							shell.run(disk.getMountPath(par).."/"..run)
 							sleep(0.1)
-							mainMenu()
 						end
+						mainMenu()
 					end
 				end
 			elseif e == "key" and par == 14 then
-				break
 				mainMenu()
 			end
 		end
@@ -108,7 +107,7 @@ local function main(...)
 			"Shutdown", --3
 		}
 	
-		local opt, ch = ui.menu(options, "Dashboard", nil, false)
+		local opt, ch = ui.menu(options, "Dashboard")
 	
 		if opt == 1 then
 			sleep(0.1)
@@ -118,8 +117,6 @@ local function main(...)
 			playDisk()
 		elseif opt == 3 then
 			os.shutdown()
-		else
-			crash("crash", a nil value)
 		end
 	end
 	
