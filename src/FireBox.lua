@@ -87,15 +87,14 @@ local function main(...)
 						else
 							shell.run(disk.getMountPath(par).."/"..run)
 							sleep(0.1)
+							break
 							mainMenu()
 						end
 					end
 				end
-			elseif e == "key" then
-				if par == 14 then
-					break
-					mainMenu()
-				end
+			elseif e == "key" and par == 14 then
+				break
+				mainMenu()
 			end
 		end
 	end
