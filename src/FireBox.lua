@@ -55,7 +55,10 @@ local function main(...)
 	
 	local function localGamesList()
 		clear()
-		
+		graphics.header()
+		sertextext.center(5,"Work In Progress")
+		sleep(2)
+		mainMenu()
 	end
 	
 	local function playDisk()
@@ -86,6 +89,15 @@ local function main(...)
 							disk.eject(par)
 							sleep(2)
 						else
+							clear()
+							graphics.header()
+							sertextext.center(5, "Loading Game...")
+							sleep(1.5)
+							term.setBackgroundColor(colors.black)
+							term.clear()
+							term.setCursorPos(1,1)
+							term.setTextColor(colors.white)
+							sleep(0.1)
 							shell.run(disk.getMountPath(par).."/"..run)
 							sleep(0.1)
 						end
