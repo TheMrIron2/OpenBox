@@ -52,15 +52,85 @@ local function main(...)
 		term.setTextColor(colors.red)
 	end
 	
-	clear()
 	
+	local function localGamesList()
+		clear()
+		
+	end
+	
+	local function playDisk()
+		clear()
+		graphics.header()
+		sertextext.center(5, "Insert a disk or press backspace to cancel")
+		while true do
+			local e, par = os.pullEvent()
+			if e == "disk" then
+				if not disk.hasData(par) then
+					clear()
+					graphics.header()
+					sertextext.center(5, "The inserted disk has no data")
+					disk.eject(par)
+					sleep(2)
+				else
+					if not fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
+						clear()
+						graphics.header()
+						disk.eject(par)
+						sleep(2)
+					else
+						dofile(disk.getMountPath(par).."/fireboxlaunch")
+						if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
+							clear()
+							graphics.header()
+							disk.eject(par)
+							sleep(2)
+						else
+							shell.run(disk.getMountPath(par).."/"..run)
+							sleep(0.1)
+							mainMenu()
+						end
+					end
+				end
+			elseif e == "key" then
+				if par == 14 then
+					break
+					mainMenu()
+				end
+			end
+		end
+	end
+	
+	function mainMenu()
+		clear()
+		graphics.header()
+	
+		local options = {
+			"Play local games", --1
+			"Play disk", --2
+			"Shutdown", --3
+		}
+	
+		local opt, ch = ui.menu(options, "Dashboard", nil, false)
+	
+		if opt == 1 then
+			sleep(0.1)
+			localGamesList()
+		elseif opt == 2 then
+			sleep(0.1)
+			playDisk()
+		elseif opt == 3 then
+			os.shutdown()
+		else
+			crash("crash", a nil value)
+		end
+	end
+	
+	clear()
 	sertextext.centerDisplay("FireBox")
 	local x, y = term.getCursorPos()
 	sertextext.center(y+3, "Sertex Team")
 	sleep(3)
-	clear()
-	graphics.header()
-	
+	mainMenu()
 end
 
 local lock = false
