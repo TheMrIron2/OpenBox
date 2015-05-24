@@ -56,9 +56,11 @@ local function main(...)
 	local function localGamesList()
 		clear()
 		graphics.header()
-		sertextext.center(5,"Work In Progress")
-		sleep(2)
-		mainMenu()
+		local options = {
+			"Worm"",
+			"Redirection",
+			"",
+		}
 	end
 	
 	local function playDisk()
@@ -87,9 +89,19 @@ local function main(...)
 						if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
 							clear()
 							graphics.header()
+							sertextext.center(5, "The inserted disk is not compatible with FireBox")
 							disk.eject(par)
 							sleep(2)
 						else
+							if not gameName then
+								gameName = "Unknown"
+							end
+							if not versionGame then
+								versionGame = 1
+							end
+							if not authorGame then
+								authorGame = "Unknown"
+							end
 							clear()
 							graphics.header()
 							sertextext.center(5, "Loading Game...")
@@ -99,8 +111,20 @@ local function main(...)
 							term.setCursorPos(1,1)
 							term.setTextColor(colors.white)
 							sleep(0.1)
-							shell.run(disk.getMountPath(par).."/"..run)
-							sleep(0.1)
+							local function runGame()
+								shell.run(disk.getMountPath(par).."/"..run)
+							end
+							local ok, err = pcall(runGame)
+							if not ok then
+								clear()
+								graphics.header()
+								sertextext.center(5, "The Game \""..gameName.."\" crashed")
+								print(6, "\n"..err)
+								local x, y = term.getCursorPos()
+								sertextext.center(y+2, "Contact "..authorGame.." and report the error")
+								sertextext.center(y+4, "Press Any Key To Continue")
+								os.pullEvent("key")
+							end
 						end
 						mainMenu()
 					end
