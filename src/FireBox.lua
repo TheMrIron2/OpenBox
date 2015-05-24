@@ -87,7 +87,6 @@ local function main(...)
 						else
 							shell.run(disk.getMountPath(par).."/"..run)
 							sleep(0.1)
-							break
 							mainMenu()
 						end
 					end
