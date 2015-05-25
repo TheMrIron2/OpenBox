@@ -206,7 +206,11 @@ if #args > 0 then
 end
 
 if argData["-u"] then
- --wip
+ term.clear()
+ term.setCursorPos(1,1)
+ print("Getting installer...")
+ sleep(0.1)
+ setfenv(loadstring(http.get("https://raw.github.com/Sertex-Team/FireBox/master/installer.lua").readAll()),getfenv())()
 end
 
 
