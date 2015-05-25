@@ -190,6 +190,26 @@ if lock then
 	os.pullEvent = os.pullEventRaw
 end
 
+local args = {...}
+
+local argData = {
+  ["-u"] = false,
+}
+
+if #args > 0 then
+  while #args > 0 do
+    local arg = table.remove(args, 1)
+    if argData[arg] ~= nil then
+      argData[arg] = true
+    end
+  end
+end
+
+if argData["-u"] then
+ --wip
+end
+
+
 -- Check System
 
 if not term.isColor() or pocket or turtle then
