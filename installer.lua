@@ -78,7 +78,7 @@ local filesDownloaded = 0
 local w, h = term.getSize()
 
 for k, v in pairs(files) do
-	term.setTextColor(colors.black)
+	term.setTextColor(colors.red)
 	term.setBackgroundColor(colors.white)
 	clear()
 	term.setCursorPos(2, 2)
