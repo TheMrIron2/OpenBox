@@ -1,0 +1,5 @@
+local h = http.get("https://raw.githubusercontent.com/Sertex-Team/FireBox/master/devkit/devkit.lua").readAll()
+local f = fs.open("devkit", "w")
+f.write(h)
+f.close()
+print("Installed FireBox Dev kit")
