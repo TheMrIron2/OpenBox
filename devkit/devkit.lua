@@ -2,6 +2,10 @@ term.clear()
 term.setCursorPos(1,1)
 print("Insert a disk to code")
 local e, par = os.pullEvent("disk")
+if not disk.hasData(par) then
+	print("This isn't a disk")
+	return
+end
 sleep(0.1)
 term.clear()
 term.setCursorPos(1,1)
