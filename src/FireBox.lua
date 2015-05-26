@@ -126,7 +126,10 @@ local function main(...)
 							term.setTextColor(colors.white)
 							sleep(0.1)
 							local function runGame()
-								shell.run(disk.getMountPath(par).."/"..run)
+								local g = fs.open(disk.getMountPath(par).."/"..run, "r")
+								local runGame = g.readAll()
+								g.close()
+								setfenv(loadstring(g),getfenv())()
 							end
 							local ok, err = pcall(runGame)
 							if not ok then
