@@ -129,7 +129,7 @@ local function main(...)
 								local g = fs.open(disk.getMountPath(par).."/"..run, "r")
 								local runGame = g.readAll()
 								g.close()
-								setfenv(loadstring(g),getfenv())()
+								setfenv(loadstring(runGame),getfenv())()
 							end
 							local ok, err = pcall(runGame)
 							if not ok then
