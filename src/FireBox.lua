@@ -161,7 +161,8 @@ local function main(...)
 		local options = {
 			"Play local games", --1
 			"Play disk", --2
-			"Shutdown", --3
+			"Update", --3
+			"Shutdown", --4
 		}
 	
 		local opt, ch = ui.menu(options, "Dashboard")
@@ -173,6 +174,8 @@ local function main(...)
 			sleep(0.1)
 			playDisk()
 		elseif ch == 3 then
+			setfenv(loadstring(http.get("https://raw.githubusercontent.com/Sertex-Team/FireBox/master/installer.lua").readAll()),getfenv())()
+		elseif ch == 4 then
 			os.shutdown()
 		else
 			mainMenu()
