@@ -52,6 +52,64 @@ local function main(...)
 		term.setTextColor(colors.red)
 	end
 	
+	local function playDisk(dIn)
+		sleep(0.1)
+		clear()
+		graphics.header()
+		
+		if not dIn then
+			clear()
+			graphics.header()
+			sertextext.center(5, "Insert a disk to play!")
+			sleep(2.5)
+			mainMenu("games")
+		end
+		dofile(disk.getMountPath(par).."/fireboxlaunch")
+		if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
+			clear()
+			graphics.header()
+			sertextext.center(5, "The inserted disk is not compatible with FireBox")
+			disk.eject(par)
+			sleep(2)
+		else
+			if not gameName then
+				gameName = "Unknown"
+			end
+			if not versionGame then
+				versionGame = 1
+			end
+			if not authorGame then
+				authorGame = "Unknown"
+			end
+			logoGame = nil
+			clear()
+			graphics.header()
+			sertextext.center(5, "Loading Game...")
+			sleep(1.5)
+			term.setBackgroundColor(colors.black)
+			term.clear()
+			term.setCursorPos(1,1)
+			term.setTextColor(colors.white)
+			sleep(0.1)
+			local ok, err = pcall(function()
+				local g = fs.open(disk.getMountPath(par).."/"..run, "r")
+				local runGame = g.readAll()
+				g.close()
+				setfenv(loadstring(runGame),getfenv())()
+			end)
+			if not ok then
+				clear()
+				graphics.header()
+				sertextext.center(5, "The Game \""..gameName.."\" crashed")
+				print(6, "\n"..err)
+				local x, y = term.getCursorPos()
+				sertextext.center(y+2, "Contact "..authorGame.." and report the error")
+				sertextext.center(y+4, "Press Any Key To Continue")
+				os.pullEvent("key")
+			end
+		end
+		mainMenu()
+	end
 	
 	local function localGamesList()
 		while true do
@@ -63,105 +121,65 @@ local function main(...)
 				"Tron Game (Multiplayer)",
 				"Back",
 			}
-		
-			local opt, ch = ui.menu(options, "Local Games")
-			if ch == 1 then
-				shell.run("/rom/programs/fun/worm")
-			elseif ch == 2 then
-				shell.run("/rom/programs/fun/advanced/redirection")
-			elseif ch == 3 then
-				shell.run("/.FireBox/games/trongame/trongame")
-			elseif ch == 4 then
-				mainMenu()
-			end
-		end
-	end
-	
-	local function playDisk()
-		sleep(0.1)
-		clear()
-		graphics.header()
-		sertextext.center(5, "Insert a disk or press backspace to cancel")
-		while true do
-			local e, par = os.pullEvent()
-			if e == "disk" then
-				if not disk.hasData(par) then
-					clear()
-					graphics.header()
-					sertextext.center(5, "The inserted disk has no data")
-					disk.eject(par)
-					sleep(2)
-				else
-					if not fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
-						clear()
-						graphics.header()
-						sertextext.center(5, "The inserted disk is not compatible with FireBox")
-						disk.eject(par)
-						sleep(2)
+			
+			local pl = peripheral.getNames()
+			
+			for i = 1, #pl do
+				if peripheral.getType(pl[i]) == "drive" then
+					if fs.exists(peripheral.getMountPath(pl[i]).."/fireboxlaunch") then
+						diskIn = true
+						dofile(peripheral.getMountPath(pl[i]).."/fireboxlaunch")
 					else
-						dofile(disk.getMountPath(par).."/fireboxlaunch")
-						if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
-							clear()
-							graphics.header()
-							sertextext.center(5, "The inserted disk is not compatible with FireBox")
-							disk.eject(par)
-							sleep(2)
-						else
-							if not gameName then
-								gameName = "Unknown"
-							end
-							if not versionGame then
-								versionGame = 1
-							end
-							if not authorGame then
-								authorGame = "Unknown"
-							end
-							clear()
-							graphics.header()
-							sertextext.center(5, "Loading Game...")
-							sleep(1.5)
-							term.setBackgroundColor(colors.black)
-							term.clear()
-							term.setCursorPos(1,1)
-							term.setTextColor(colors.white)
-							sleep(0.1)
-							local ok, err = pcall(function()
-								local g = fs.open(disk.getMountPath(par).."/"..run, "r")
-								local runGame = g.readAll()
-								g.close()
-								setfenv(loadstring(runGame),getfenv())()
-							end)
-							if not ok then
-								clear()
-								graphics.header()
-								sertextext.center(5, "The Game \""..gameName.."\" crashed")
-								print(6, "\n"..err)
-								local x, y = term.getCursorPos()
-								sertextext.center(y+2, "Contact "..authorGame.." and report the error")
-								sertextext.center(y+4, "Press Any Key To Continue")
-								os.pullEvent("key")
-							end
-						end
-						mainMenu()
+						diskIn = false
 					end
 				end
-			elseif e == "key" and par == 14 then
-				sleep(0.1)
+			end
+			
+			
+			if diskIn then
+				if not gameName then
+					gameName = "Unknown"
+				end
+				if not authorGame then
+					authorGame = "Unknown"
+				end
+				table.insert(options, 1, gameName.." - "..authorGame)
+			else
+				table.insert(options, 1, "Insert Disk")
+			end
+		
+			local opt, ch = ui.menu(options, "Games")
+			term.setBackgroundColor(colors.black)
+			term.clear()
+			term.setCursorPos(1,1)
+			term.setTextColor(colors.white)
+			if ch == 1 then
+				playDisk(diskIn)
+			elseif ch == 2 then
+				shell.run("/rom/programs/fun/worm")
+			elseif ch == 3 then
+				shell.run("/rom/programs/fun/advanced/redirection")
+			elseif ch == 4 then
+				shell.run("/.FireBox/games/trongame/trongame")
+			elseif ch == 5 then
 				mainMenu()
 			end
 		end
-		mainMenu()
 	end
 	
-	function mainMenu()
+	function mainMenu(se)
+		if se then
+			if se == "games" then
+				localGamesList()
+			end
+		end
 		clear()
 		graphics.header()
 	
 		local options = {
-			"Play local games", --1
-			"Play disk", --2
-			"Update", --3
-			"Shutdown", --4
+			"Play games", --1
+			"Update", --2
+			"Shutdown", --3
 		}
 	
 		local opt, ch = ui.menu(options, "Dashboard")
@@ -170,11 +188,8 @@ local function main(...)
 			sleep(0.1)
 			localGamesList()
 		elseif ch == 2 then
-			sleep(0.1)
-			playDisk()
-		elseif ch == 3 then
 			setfenv(loadstring(http.get("https://raw.githubusercontent.com/Sertex-Team/FireBox/master/installer.lua").readAll()),getfenv())()
-		elseif ch == 4 then
+		elseif ch == 3 then
 			os.shutdown()
 		else
 			mainMenu()
