@@ -126,9 +126,9 @@ local function main(...)
 			
 			for i = 1, #pl do
 				if peripheral.getType(pl[i]) == "drive" then
-					if fs.exists(peripheral.getMountPath(pl[i]).."/fireboxlaunch") then
+					if fs.exists(disk.getMountPath(pl[i]).."/fireboxlaunch") then
 						diskIn = true
-						dofile(peripheral.getMountPath(pl[i]).."/fireboxlaunch")
+						dofile(disk.getMountPath(pl[i]).."/fireboxlaunch")
 					else
 						diskIn = false
 					end
