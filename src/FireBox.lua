@@ -123,10 +123,10 @@ local function main(...)
 			}
 			
 			for k, v in ipairs(peripheral.getNames()) do
-				if peripheral.getType(v) == "drive" then
-					if fs.exists(disk.getMountPath(v).."/fireboxlaunch") then
+				if peripheral.getType(k) == "drive" then
+					if fs.exists(disk.getMountPath(k).."/fireboxlaunch") then
 						diskIn = true
-						dofile(disk.getMountPath(v).."/fireboxlaunch")
+						dofile(disk.getMountPath(k).."/fireboxlaunch")
 					else
 						diskIn = false
 					end
