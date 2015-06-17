@@ -60,10 +60,24 @@ local function main(...)
 		if not dIn then
 			clear()
 			graphics.header()
-			sertextext.center(5, "Insert a disk to play!")
-			sleep(2.5)
-			mainMenu("games")
+			sertextext.center(5, "Insert a disk to play or press backspace!")
+			local e, par = os.pullEvent()
+			if e == "disk" then
+				if disk.hasData(par) and fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
+					dofile(disk.getMountPath(par).."/fireboxlaunch")
+				else
+					clear()
+					graphics.header()
+					sertextext.center(5, "The inserted disk is not compatible with FireBox")
+					disk.eject(par)
+					sleep(2)
+					mainMenu("games")
+				end
+			else e == "key" and par == keys.backspace then
+				mainMenu("games")
+			end
 		end
+		if not fs.exists(disk.getMountPath(par))
 		dofile(disk.getMountPath(par).."/fireboxlaunch")
 		if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
 			clear()
