@@ -77,7 +77,13 @@ local function main(...)
 				mainMenu("games")
 			end
 		end
-		if not fs.exists(disk.getMountPath(par)) then
+		if not fs.exists(disk.getMountPath(par).."/firebox") then
+			clear()
+			graphics.header()
+			sertextext.center(5, "The inserted disk is not compatible with FireBox")
+			disk.eject(par)
+			sleep(2)
+		else
 			dofile(disk.getMountPath(par).."/fireboxlaunch")
 		if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
 			clear()
