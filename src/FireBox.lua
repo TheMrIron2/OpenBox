@@ -77,8 +77,8 @@ local function main(...)
 				mainMenu("games")
 			end
 		end
-		if not fs.exists(disk.getMountPath(par))
-		dofile(disk.getMountPath(par).."/fireboxlaunch")
+		if not fs.exists(disk.getMountPath(par)) then
+			dofile(disk.getMountPath(par).."/fireboxlaunch")
 		if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
 			clear()
 			graphics.header()
