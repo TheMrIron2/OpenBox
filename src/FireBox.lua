@@ -73,7 +73,7 @@ local function main(...)
 					sleep(2)
 					mainMenu("games")
 				end
-			else e == "key" and par == keys.backspace then
+			elseif e == "key" and par == keys.backspace then
 				mainMenu("games")
 			end
 		end
