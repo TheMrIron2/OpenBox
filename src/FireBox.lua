@@ -85,6 +85,7 @@ local function main(...)
 			sleep(2)
 		else
 			dofile(disk.getMountPath(par).."/fireboxlaunch")
+		end
 		if not run or not fs.exists(disk.getMountPath(par).."/"..run) then
 			clear()
 			graphics.header()
