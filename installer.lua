@@ -1,3 +1,23 @@
+term.clear()
+term.setCursorPos(1,1)
+printError("Warning")
+printError("You're trying to install FireBox")
+printError("FireBox is bugged")
+printError("You sure?")
+print("yes/no")
+c = read()
+while true do
+	if c == "yes" then
+		break
+	elseif c == "no" then
+		return
+	else
+		print("Please just type yes or no")
+	end
+end
+
+
+
 local files = {
 	["src/FireBox.lua"] = "/.FireBox/FireBox",
 	["src/apis/fb.lua"] = "/.FireBox/apis/fb",
