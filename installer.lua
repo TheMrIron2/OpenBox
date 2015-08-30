@@ -5,7 +5,7 @@ printError("You're trying to install FireBox")
 printError("FireBox is bugged")
 printError("We're removing the software from your computer (if exists)")
 sleep(5)
-if fs.exists("/.FireBox")
+if fs.exists("/.FireBox") then
 	fs.delete("/.FireBox")
 	printError("Removed FireBox")
 else
