@@ -54,32 +54,22 @@ local function main(...)
 		term.setTextColor(colors.red)
 	end
 	
-	local function playDisk(dIn)
+	local function playDisk()
 		sleep(0.1)
 		clear()
 		graphics.header()
-		
-		if not dIn then
-			clear()
-			graphics.header()
-			sertextext.center(5, "Insert a disk to play or press backspace!")
+		sertextext.center(5, "Insert disk or press backspace")
+		while true do
 			local e, par = os.pullEvent()
 			if e == "disk" then
-				if disk.hasData(par) and fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
-					dofile(disk.getMountPath(par).."/fireboxlaunch")
-				else
-					clear()
-					graphics.header()
-					sertextext.center(5, "The inserted disk is not compatible with FireBox")
-					disk.eject(par)
-					sleep(2)
-					mainMenu("games")
+				break
+			elseif e == "key" then
+				if par == keys.backspace then
+					return
 				end
-			elseif e == "key" and par == keys.backspace then
-				mainMenu("games")
 			end
 		end
-		if not fs.exists(disk.getMountPath(par).."/firebox") then
+		if not fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
 			clear()
 			graphics.header()
 			sertextext.center(5, "The inserted disk is not compatible with FireBox")
@@ -139,12 +129,12 @@ local function main(...)
 			clear()
 			graphics.header()
 			local options = {
+				"Play Disk",
 				"Worm",
 				"Redirection",
 				"Tron Game (Multiplayer)",
 				"Back",
 			}
-			table.insert(options, 1, "Play Disk")
 		
 			local opt, ch = ui.menu(options, "Games")
 			term.setBackgroundColor(colors.black)
