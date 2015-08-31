@@ -144,7 +144,7 @@ local function main(...)
 				"Tron Game (Multiplayer)",
 				"Back",
 			}
-			table.insert(options, 1, "Insert Disk")
+			table.insert(options, 1, "Play Disk")
 		
 			local opt, ch = ui.menu(options, "Games")
 			term.setBackgroundColor(colors.black)
