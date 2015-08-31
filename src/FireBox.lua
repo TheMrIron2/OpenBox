@@ -144,33 +144,7 @@ local function main(...)
 				"Tron Game (Multiplayer)",
 				"Back",
 			}
-			
-			for k, v in ipairs(peripheral.getNames()) do
-				if peripheral.getType(v) == "drive" and peripheral.call(v, "hasData") then
-					if fs.exists(disk.getMountPath(v).."/fireboxlaunch") then
-						diskIn = true
-            e, par = "disk", v
-						dofile(disk.getMountPath(v).."/fireboxlaunch")
-					else
-						diskIn = false
-					end
-				else
-					diskIn = false
-				end
-			end
-			
-			
-			if diskIn then
-				if not gameName then
-					gameName = "Unknown"
-				end
-				if not authorGame then
-					authorGame = "Unknown"
-				end
-				table.insert(options, 1, gameName.." - "..authorGame)
-			else
-				table.insert(options, 1, "Insert Disk")
-			end
+			table.insert(options, 1, "Insert Disk")
 		
 			local opt, ch = ui.menu(options, "Games")
 			term.setBackgroundColor(colors.black)
@@ -178,7 +152,7 @@ local function main(...)
 			term.setCursorPos(1,1)
 			term.setTextColor(colors.white)
 			if ch == 1 then
-				playDisk(diskIn)
+				playDisk()
 			elseif ch == 2 then
 				shell.run("/rom/programs/fun/worm")
 			elseif ch == 3 then
