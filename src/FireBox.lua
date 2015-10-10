@@ -1,5 +1,4 @@
 local function crash(reason,message)
-
 	local function center(y, text )
 		w, h = term.getSize()
 		term.setCursorPos((w - #text) / 2, y)
@@ -46,7 +45,6 @@ local function main(...)
 			os.loadAPI("/.FireBox/apis/"..v)
 		end
 	end
-	
 	local function clear()
 		term.setBackgroundColor(colors.white)
 		term.clear()
@@ -123,7 +121,6 @@ local function main(...)
 		end
 		mainMenu()
 	end
-	
 	local function localGamesList()
 		while true do
 			clear()
@@ -132,7 +129,7 @@ local function main(...)
 				"Play Disk",
 				"Worm",
 				"Redirection",
-				"Tron Game (Multiplayer)",
+				"TRON",
 				"Back",
 			}
 		
@@ -154,7 +151,6 @@ local function main(...)
 			end
 		end
 	end
-	
 	function mainMenu(se)
 		if se then
 			if se == "games" then
@@ -165,7 +161,7 @@ local function main(...)
 		graphics.header()
 	
 		local options = {
-			"Play games", --1
+			"Play", --1
 			"Update", --2
 			"Shutdown", --3
 		}
@@ -178,6 +174,17 @@ local function main(...)
 		elseif ch == 2 then
 			setfenv(loadstring(http.get("https://raw.githubusercontent.com/Sertex-Team/FireBox/master/installer.lua").readAll()),getfenv())()
 		elseif ch == 3 then
+			term.setBackgroundColour(colours.white)
+			term.setTextColour(colours.red)
+			term.clear()
+			sertextext.center(8,"Shutting Down...")
+			sleep(1)
+			term.setBackgroundColour(colours.grey)
+			term.clear()
+			sleep(0.5)
+			term.setBackgroundColour(colours.lightGrey)
+			term.clear()
+			sleep(0.2)
 			os.shutdown()
 		else
 			mainMenu()
