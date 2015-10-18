@@ -72,7 +72,8 @@ local function main(...)
 			graphics.header()
 			sertextext.center(5, "Insert a disk!")
 			disk.eject(par)
-			sleep(2)		
+			sleep(2)
+			return
 		end
 		if not fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
 			clear()
@@ -80,6 +81,7 @@ local function main(...)
 			sertextext.center(5, "The inserted disk is not compatible with FireBox")
 			disk.eject(par)
 			sleep(2)
+			return
 		else
 			dofile(disk.getMountPath(par).."/fireboxlaunch")
 		end
