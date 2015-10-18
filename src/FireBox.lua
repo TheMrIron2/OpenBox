@@ -67,6 +67,13 @@ local function main(...)
 				end
 			end
 		end
+		if not disk.hasData(par) then
+			clear()
+			graphics.header()
+			sertextext.center(5, "Insert a disk!")
+			disk.eject(par)
+			sleep(2)		
+		end
 		if not fs.exists(disk.getMountPath(par).."/fireboxlaunch") then
 			clear()
 			graphics.header()
