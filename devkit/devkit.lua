@@ -14,9 +14,9 @@ term.setTextColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
 print("Loading FireBox APIs...")
-local apis = fs.list("firebox/apis")
+local apis = fs.list("FireBox/apis")
 for k, v in pairs(apis) do
-	os.loadAPI("firebox/apis/"..v)
+	os.loadAPI("FireBox/apis/"..v)
 	print("Loaded "..v)
 end
 print("Insert a disk to code")
