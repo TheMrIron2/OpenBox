@@ -40,6 +40,12 @@ end
 local function main(...)
   local e
   local par
+	
+	_G.FireBox = {
+		version = "2",
+		gameDir = nil,
+	}
+	
 	for i, v in ipairs(fs.list("/.FireBox/apis")) do
 		if not fs.isDir(v) then
 			os.loadAPI("/.FireBox/apis/"..v)
@@ -94,13 +100,21 @@ local function main(...)
 		else
 			if not gameName then
 				gameName = "Unknown"
+			else
+				FireBox.gameName = gameName
 			end
 			if not versionGame then
 				versionGame = 1
+			else
+				FireBox.versionGame = versionGame
 			end
 			if not authorGame then
 				authorGame = "Unknown"
+			else
+				FireBox.authorGame = authorGame
 			end
+			FireBox.game = run
+			FireBox.gameDir = disk.getMountPath(par).."/"..run
 			logoGame = nil
 			clear()
 			graphics.header()
@@ -112,7 +126,7 @@ local function main(...)
 			term.setTextColor(colors.white)
 			sleep(0.1)
 			local ok, err = pcall(function()
-				local g = fs.open(disk.getMountPath(par).."/"..run, "r")
+				local g = fs.open(disk.getMountPath(par).."/start", "r")
 				local runGame = g.readAll()
 				g.close()
 				setfenv(loadstring(runGame),getfenv())()
