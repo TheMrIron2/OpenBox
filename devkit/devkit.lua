@@ -1,6 +1,24 @@
-term.setBackgroundColour(colours.orange)
+local sts = [[
+	if not FireBox then
+		print("Warning")
+		print("This is a FireBox Game")
+		print("Run this game using the FireBox software")
+		return false
+	end
+	
+	shell.run(FireBox.gameDir)
+]]
+
+term.setBackgroundColour(colours.black)
+term.setTextColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
+print("Loading FireBox APIs...")
+local apis = fs.list("firebox/apis")
+for k, v in pairs(apis) do
+	os.loadAPI("firebox/apis/"..v)
+	print("Loaded "..v)
+end
 print("Insert a disk to code")
 local e, par = os.pullEvent("disk")
 if not disk.hasData(par) then
@@ -24,6 +42,9 @@ f.write("run = \""..run.."\"\ngameName = \""..name.."\"\nversionGame = \""..vers
 f.close()
 disk.setLabel(par, name.." [FireBox]")
 shell.run("/rom/programs/edit", disk.getMountPath(par).."/"..run)
+local f = fs.open(disk.getMountPath(par).."/start","w")
+f.write(sts)
+f.close()
 term.clear()
 term.setCursorPos(1,1)
 print("Run: edit "..disk.getMountPath(par).."/"..run.." to edit the game")
