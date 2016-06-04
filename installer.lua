@@ -10,7 +10,7 @@ local files = {
 	["src/games/trongame/trongame.lua"] = "/.FireBox/games/trongame/trongame",
 }
 
-local githubUser    = "Sertex-Team"
+local githubUser    = "BeaconNet"
 local githubRepo    = "FireBox"
 local githubBranch  = "master"
 
