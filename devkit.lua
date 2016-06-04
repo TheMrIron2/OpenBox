@@ -8,7 +8,7 @@ local files = {
 	["src/apis/ui.lua"] = "/FireBox/apis/ui",
 }
 
-local githubUser    = "Sertex-Team"
+local githubUser    = "BeaconNet"
 local githubRepo    = "FireBox"
 local githubBranch  = "master"
 
