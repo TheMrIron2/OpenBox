@@ -32,7 +32,7 @@ local function crash(reason,message)
 		local x, y = term.getCursorPos()
 		center(y+2,"Please reboot system!")
 		center(y+3,"Please report the issue here:")
-		center(y+4,"https://github.com/BeaconNet/FireBox/issues")
+		center(y+4,"https://github.com/SertexTeamFireBox/issues")
 		while true do
 			sleep(0)
 		end
@@ -195,7 +195,7 @@ local function main(...)
 			sleep(0.1)
 			localGamesList()
 		elseif ch == 2 then
-			setfenv(loadstring(http.get("https://raw.githubusercontent.com/BeaconNet/FireBox/master/installer.lua").readAll()),getfenv())()
+			setfenv(loadstring(http.get("https://raw.githubusercontent.com/SertexTeam/FireBox/master/installer.lua").readAll()),getfenv())()
 		elseif ch == 3 then
 			term.setBackgroundColour(colours.white)
 			term.setTextColour(colours.red)
@@ -217,7 +217,7 @@ local function main(...)
 	clear()
 	sertextext.centerDisplay("FireBox")
 	local x, y = term.getCursorPos()
-	sertextext.center(y+3, "BeaconNet")
+	sertextext.center(y+3, "Sertex")
 	sleep(3)
 	mainMenu()
 end
@@ -250,7 +250,7 @@ if argData["-u"] then
  term.setCursorPos(1,1)
  print("Getting installer...")
  sleep(0.1)
- setfenv(loadstring(http.get("https://raw.github.com/BeaconNet/FireBox/master/installer.lua").readAll()),getfenv())()
+ setfenv(loadstring(http.get("https://raw.github.com/SertexTeam/FireBox/master/installer.lua").readAll()),getfenv())()
 end
 
 
