@@ -1,7 +1,3 @@
-# FireBox
-Console for ComputerCraft
-Installer:
-# pastebin run 3GM2C3Df
+# OpenBox
 
-Dev Kit Installer:
-# pastebin run ppdGrpzD
+OpenBox is an open source ground-up remake of Sertex's FireBox console for ComputerCraft. It intends to recreate the essence of FireBox and to carry on the original vision for the console, but in an updated, modern and clean fashion and with code that anyone can understand.
