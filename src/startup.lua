@@ -1,8 +1,8 @@
-local function centerSlow(y, string)
+local function centerSlow(y, text)
   local w, h = term.getSize()
-  local x = (w / 2) - (#string / 2)
+  local x = (w / 2) - (#text / 2)
   term.setCursorPos(x, y)
-  textutils.slowPrint(string) -- leave at default slowPrint speed
+  textutils.slowPrint(text) -- leave at default slowPrint speed
 end
 
 
